@@ -1,0 +1,47 @@
+filebeat.inputs:
+- type: container
+  paths: 
+    - "/var/lib/docker/containers/*/*.log"
+
+processors:
+- add_docker_metadata:
+    host: "unix:///var/run/docker.sock"
+      #- drop_event:
+      #    when:
+      #      not.equals:
+      #        container.name: "minecraft-server"
+      #- drop_event:
+      #    when:
+      #      not.contains:
+      #        message: "xuid"
+      #- dissect:
+      #    tokenizer: "[%{timestamp} %{loglevel}] %{mc_message}"
+      #    field: "message"
+      #    target_prefix: ""
+      #- dissect:
+      #    when.contains:
+      #      message: ','
+      #    tokenizer: "Player %{mc_event_type}: %{mc_player_name}, xuid: %{mc_xuid}"
+      #    field: "mc_message"
+      #    target_prefix: ""
+      #- dissect:
+      #    when.not.contains:
+      #      message: ','
+      #    tokenizer: "Player %{mc_event_type}: %{mc_player_name} xuid: %{mc_xuid}"
+      #    field: "mc_message"
+      #    target_prefix: ""
+      #- timestamp:
+      #    field: timestamp
+      #    layouts:
+      #      - '2006-01-02 15:04:05.999'
+      #    test:
+      #      - '2023-03-30 17:17:20.279'
+      #- drop_fields:
+      #    fields: ["message", "timestamp"]
+
+output.logstash:
+  hosts: ["logstash:5044"]
+
+    #output.console:
+    #  pretty: true
+
