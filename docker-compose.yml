@@ -67,6 +67,15 @@ services:
     depends_on:
       - logstash
 
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/html:/usr/share/nginx/html
+    ports:
+      - "8080:80"
+
 volumes:
   esdata:
     driver: local
