@@ -61,6 +61,7 @@ def create_project(token, repo_name, training_plan):
         "repoOwner": repo_owner
     }
     data = graphql_request(token, query, variables)
+    print(data)
 
     # Create a new repository project
     mutation = """
