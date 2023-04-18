@@ -48,7 +48,7 @@ def create_project(token, repo_name, training_plan):
     # Fetch repository information using GraphQL
     query = """
     query($repoName: String!) {
-        repository(name: $repoName) {
+        repository(name: $repoName, owner: $repoOwner) {
             id
             owner {
                 id
@@ -57,10 +57,10 @@ def create_project(token, repo_name, training_plan):
     }
     """
     variables = {
-        "repoName": repo_name
+        "repoName": repo_name,
+        "repoOwner": repo_owner
     }
     data = graphql_request(token, query, variables)
-    print(data)
 
     # Create a new repository project
     mutation = """
@@ -136,6 +136,7 @@ def create_project(token, repo_name, training_plan):
 if __name__ == "__main__":
     token = os.environ.get("GITHUB_TOKEN")
     repo_name = os.environ.get("GITHUB_REPOSITORY")
+    repo_owner = os.environ.get("GITHUB_REPOSITORY_OWNER")
 
     if not token or not repo_name:
         print("GITHUB_TOKEN or GITHUB_REPOSITORY not found in environment variables.")
