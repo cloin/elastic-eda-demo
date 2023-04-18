@@ -1,5 +1,13 @@
 # Rough self-training plan for ELK
 
+I chose these blogs and videos based on several factors to provide a comprehensive learning experience:
+- Relevance: The selected resources directly address the topics and components of the ELK Stack, ensuring you get the most relevant and accurate information.
+- Authoritativeness: The blogs and videos have been created by reputable sources and experts in the field. For instance, many blogs are from Elastic's official website (elastic.co), ensuring that the information is accurate and up-to-date. The video creators, such as TechWorld with Nana and Amigoscode, are also well-regarded for their technical content and instructional expertise.
+- Quality of explanations: The chosen blogs and videos provide clear and concise explanations, making it easier for you to understand the concepts and follow along with the instructions.
+- Depth and breadth of coverage: The resources cover a range of topics, from introductory material to more advanced use cases, ensuring a well-rounded understanding of the ELK Stack. This includes both theoretical concepts and practical applications, so you can gain a solid foundation and apply your knowledge effectively.
+- Accessibility: I aimed to choose resources that cater to different learning preferences, so you can find the format that works best for you. This includes a mix of blogs for reading and videos for visual and auditory learners.
+- Engagement and pacing: The videos chosen have engaging presenters who explain the concepts at a reasonable pace, making it easier for you to follow along and absorb the material.
+
 ## Week 1: Introduction to ELK Stack
 
 ### 1.1. Overview of the ELK Stack:
