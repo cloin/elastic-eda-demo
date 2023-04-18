@@ -1,7 +1,10 @@
 import os
 import sys
 import base64
+import requests
 from github import Github
+
+GRAPHQL_API_URL = "https://api.github.com/graphql"
 
 def get_training_plan(repo):
     # Fetch the content of the learn.md file
@@ -27,7 +30,98 @@ def get_training_plan(repo):
 
     return training_plan
 
-def create_project():
+def graphql_request(token, query, variables=None):
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+    response = requests.post(GRAPHQL_API_URL, json={"query": query, "variables": variables}, headers=headers)
+    response.raise_for_status()
+    return response.json()["data"]
+
+def create_project(token, repo_name, training_plan):
+    # Fetch repository information using GraphQL
+    query = """
+    query($repoName: String!) {
+        repository(name: $repoName) {
+            id
+            owner {
+                id
+            }
+        }
+    }
+    """
+    variables = {
+        "repoName": repo_name
+    }
+    data = graphql_request(token, query, variables)
+
+    # Create a new repository project
+    mutation = """
+    mutation($ownerId: ID!, $repoId: ID!, $name: String!, $body: String!) {
+        createProject(input: {ownerId: $ownerId, repositoryId: $repoId, name: $name, body: $body}) {
+            project {
+                id
+            }
+        }
+    }
+    """
+    variables = {
+        "ownerId": data["repository"]["owner"]["id"],
+        "repoId": data["repository"]["id"],
+        "name": "ELK Training Plan",
+        "body": "A project to track progress in the ELK training plan."
+    }
+    data = graphql_request(token, mutation, variables)
+    project_id = data["createProject"]["project"]["id"]
+
+    # Create columns for the new project
+    column_names = ["To Do", "In Progress", "Done"]
+    column_ids = []
+
+    for column_name in column_names:
+        mutation = """
+        mutation($projectId: ID!, $name: String!) {
+            createProjectColumn(input: {projectId: $projectId, name: $name}) {
+                projectColumn {
+                    id
+                }
+            }
+        }
+        """
+        variables = {
+            "projectId": project_id,
+            "name": column_name
+        }
+        data = graphql_request(token, mutation, variables)
+        column_ids.append(data["createProjectColumn"]["projectColumn"]["id"])
+
+    # Add weeks as tasks to the "To Do" column
+    todo_column_id = column_ids[0]
+
+    for week_title, sub_sections in training_plan.items():
+        card_content = f"**{week_title}**\n\n" + "\n".join(f"- {sub_section}" for sub_section in sub_sections)
+
+        # Create a new issue for the week
+        issue = repo.create_issue(title=week_title, body=card_content)
+
+        # Add the issue as a card in the "To Do" column
+        mutation = """
+        mutation($columnId: ID!, $contentId: ID!) {
+            addProjectCard(input: {projectColumnId: $columnId, contentId: $contentId}) {
+                projectCard {
+                    id
+                }
+            }
+        }
+        """
+        variables = {
+            "columnId": todo_column_id,
+            "contentId": f"Issue:{issue.id}"
+        }
+        graphql_request(token, mutation, variables)
+
+if __name__ == "__main__":
     token = os.environ.get("GITHUB_TOKEN")
     repo_name = os.environ.get("GITHUB_REPOSITORY")
 
@@ -41,18 +135,5 @@ def create_project():
     # Fetch and parse the training plan from learn.md
     training_plan = get_training_plan(repo)
 
-    # Create a new project
-    project = repo.create_project("ELK Training Plan", body="A project to track progress in the ELK training plan.")
-    
-    # Add columns to the project
-    todo_column = project.create_column("To Do")
-    project.create_column("In Progress")
-    project.create_column("Done")
-
-    # Add weeks as tasks to the "To Do" column
-    for week_title, sub_sections in training_plan.items():
-        card_content = f"**{week_title}**\n\n" + "\n".join(f"- {sub_section}" for sub_section in sub_sections)
-        todo_column.create_card(note=card_content)
-
-if __name__ == "__main__":
-    create_project()
+    # Create a new repository project
+    create_project(token, repo_name, training_plan)
