@@ -1,0 +1,23 @@
+name: Create GitHub Project
+on:
+  workflow_dispatch:
+
+jobs:
+  create_project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      
+      - name: Install Python packages
+        run: pip install requests PyGithub
+      
+      - name: Create GitHub Project and Columns
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python .github/create_project.py
