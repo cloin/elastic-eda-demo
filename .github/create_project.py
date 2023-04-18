@@ -57,8 +57,8 @@ def create_project(token, repo_name, training_plan):
     }
     """
     variables = {
-        "repoName": repo_name,
-        "repoOwner": repo_owner
+        "repoName": repo_name_split,
+        "repoOwner": repo_owner_split
     }
     data = graphql_request(token, query, variables)
     print(data)
@@ -137,7 +137,7 @@ def create_project(token, repo_name, training_plan):
 if __name__ == "__main__":
     token = os.environ.get("GITHUB_TOKEN")
     repo_name = os.environ.get("GITHUB_REPOSITORY")
-    repo_owner, repo_name = repo_name.split("/")
+    repo_owner_split, repo_name_split = repo_name.split("/")
 
     if not token or not repo_name:
         print("GITHUB_TOKEN or GITHUB_REPOSITORY not found in environment variables.")
