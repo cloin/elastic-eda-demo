@@ -43,20 +43,32 @@ def graphql_request(token, query, variables=None):
         sys.exit(1)
     return json_response["data"]
 
-
 def create_project(token, repo_name, training_plan):
     # Fetch repository information using GraphQL
     query = """
-    query($repoName: String!) {
-        repository(name: $repoName) {
+    query($owner: String!, $repoName: String!) {
+    repository(owner: $owner, name: $repoName) {
+        id
+        projects(first: 1, orderBy: {field: CREATED_AT, direction: DESC}) {
+        edges {
+            node {
             id
-            owner {
-                id
+            columns(first: 10) {
+                edges {
+                node {
+                    id
+                    name
+                }
+                }
+            }
             }
         }
+        }
+    }
     }
     """
     variables = {
+        "owner": owner,
         "repoName": repo_name
     }
     data = graphql_request(token, query, variables)
@@ -129,6 +141,7 @@ def create_project(token, repo_name, training_plan):
 if __name__ == "__main__":
     token = os.environ.get("GITHUB_TOKEN")
     repo_name = os.environ.get("GITHUB_REPOSITORY")
+    owner, repo_name = repo_name.split("/")
 
     if not token or not repo_name:
         print("GITHUB_TOKEN or GITHUB_REPOSITORY not found in environment variables.")
