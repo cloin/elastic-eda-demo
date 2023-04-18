@@ -37,7 +37,12 @@ def graphql_request(token, query, variables=None):
     }
     response = requests.post(GRAPHQL_API_URL, json={"query": query, "variables": variables}, headers=headers)
     response.raise_for_status()
-    return response.json()["data"]
+    json_response = response.json()
+    if 'data' not in json_response:
+        print(f"Error in GraphQL response: {json_response}")
+        sys.exit(1)
+    return json_response["data"]
+
 
 def create_project(token, repo_name, training_plan):
     # Fetch repository information using GraphQL
