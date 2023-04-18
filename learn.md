@@ -73,6 +73,16 @@ I chose these blogs and videos based on several factors to provide a comprehensi
 
 ## Week 3: Logstash
 
+### 3.1. Introduction to Logstash:
+- Learning Objectives:
+  - Understand the purpose and basic architecture of Logstash.
+  - Explain how Logstash fits within the ELK Stack.
+  - Identify common use cases for Logstash.
+- Blog: [What is Logstash?](https://www.elastic.co/what-is/logstash) (Source: elastic.co)
+- Video: [Logstash Tutorial | Logstash Data Processing](https://www.youtube.com/watch?v=qtUx9WgE_tE)
+  - Author: TechWorld with Nana
+  - Length: 15:39
+
 ### 3.2. Logstash pipelines and configuration:
 - Learning Objectives:
   - Create and configure Logstash pipelines.
