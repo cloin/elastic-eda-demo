@@ -1,10 +1,34 @@
 import os
 import sys
+import base64
 import requests
 from github import Github
 
 GRAPHQL_API_URL = "https://api.github.com/graphql"
 
+def get_training_plan(repo):
+    # Fetch the content of the learn.md file
+    try:
+        learn_md = repo.get_contents("learn.md")
+        content = base64.b64decode(learn_md.content).decode("utf-8")
+    except Exception as e:
+        print(f"Error fetching learn.md: {e}")
+        sys.exit(1)
+
+    # Parse the content of the learn.md file into a dictionary
+    training_plan = {}
+    current_week = None
+
+    for line in content.splitlines():
+        if line.startswith("## "):
+            current_week = line[3:].strip()
+            training_plan[current_week] = []
+        elif line.startswith("### "):
+            sub_section = line[4:].strip()
+            if current_week:
+                training_plan[current_week].append(sub_section)
+
+    return training_plan
 
 def graphql_request(token, query, variables=None):
     headers = {
@@ -20,55 +44,68 @@ def graphql_request(token, query, variables=None):
     return json_response["data"]
 
 
-def get_training_plan(repo):
-    file_contents = repo.get_contents("learn.md")
-    markdown_content = file_contents.decoded_content.decode()
-    training_plan = {}
-    for line in markdown_content.splitlines():
-        if line.startswith("##"):
-            week_title = line[3:].strip()
-            training_plan[week_title] = []
-        elif line.startswith("###"):
-            sub_section = line[4:].strip()
-            training_plan[week_title].append(sub_section)
-    return training_plan
-
-
 def create_project(token, repo_name, training_plan):
-    # Split repo_name into owner and repo_name
-    owner, repo_name = repo_name.split("/")
-
-    # Get the repository and its existing project
+    # Fetch repository information using GraphQL
     query = """
-    query($owner: String!, $repoName: String!) {
-      repository(owner: $owner, name: $repoName) {
-        id
-        projects(first: 1, orderBy: {field: CREATED_AT, direction: DESC}) {
-          edges {
-            node {
-              id
-              columns(first: 10) {
-                edges {
-                  node {
-                    id
-                    name
-                  }
-                }
-              }
+    query($repoName: String!) {
+        repository(name: $repoName) {
+            id
+            owner {
+                id
             }
-          }
         }
-      }
     }
     """
     variables = {
-        "owner": owner,
         "repoName": repo_name
     }
     data = graphql_request(token, query, variables)
-    repo_id = data["repository"]["id"]
-    project_id = data["repository"]["projects"]["edges"][0]["node"]["id"]
-    column_ids = [edge["node"]["id"] for edge in data["repository"]["projects"]["edges"][0]["node"]["columns"]["edges"]]
+
+    # Create a new repository project
+    mutation = """
+    mutation($ownerId: ID!, $repoId: ID!, $name: String!, $body: String!) {
+        createProject(input: {ownerId: $ownerId, repositoryId: $repoId, name: $name, body: $body}) {
+            project {
+                id
+            }
+        }
+    }
+    """
+    variables = {
+        "ownerId": data["repository"]["owner"]["id"],
+        "repoId": data["repository"]["id"],
+        "name": "ELK Training Plan",
+        "body": "A project to track progress in the ELK training plan."
+    }
+    data = graphql_request(token, mutation, variables)
+    project_id = data["createProject"]["project"]["id"]
+
+    # Create columns for the new project
+    column_names = ["To Do", "In Progress", "Done"]
+    column_ids = []
+
+    for column_name in column_names:
+        mutation = """
+        mutation($projectId: ID!, $name: String!) {
+            createProjectColumn(input: {projectId: $projectId, name: $name}) {
+                projectColumn {
+                    id
+                }
+            }
+        }
+        """
+        variables = {
+            "projectId": project_id,
+            "name": column_name
+        }
+        data = graphql_request(token, mutation, variables)
+        column_ids.append(data["createProjectColumn"]["projectColumn"]["id"])
+
+    # Add weeks as tasks to the "To Do" column
+    todo_column_id = column_ids[0]
+
+    for week_title, sub_sections in training_plan.items():
+        card_content = f"**{week_title}**\n\n" + "\n".join(f"- {sub_section}" for sub_section in sub_sections)
 
     # Add weeks as tasks to the "To Do" column
     todo_column_id = column_ids[0]
@@ -94,7 +131,6 @@ def create_project(token, repo_name, training_plan):
             "contentId": f"Issue:{issue.id}"
         }
         graphql_request(token, mutation, variables)
-
 
 if __name__ == "__main__":
     token = os.environ.get("GITHUB_TOKEN")
