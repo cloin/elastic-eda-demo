@@ -41,11 +41,8 @@ def create_project():
     # Fetch and parse the training plan from learn.md
     training_plan = get_training_plan(repo)
 
-    # Get the authenticated user
-    user = github.get_user()
-
-    # Create a new user-level project
-    project = user.create_project("ELK Training Plan", body="A project to track progress in the ELK training plan.")
+    # Create a new project
+    project = repo.create_project("ELK Training Plan", body="A project to track progress in the ELK training plan.")
     
     # Add columns to the project
     todo_column = project.create_column("To Do")
