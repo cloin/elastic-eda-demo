@@ -47,7 +47,7 @@ def graphql_request(token, query, variables=None):
 def create_project(token, repo_name, training_plan):
     # Fetch repository information using GraphQL
     query = """
-    query($repoName: String!) {
+    query($repoName: String!, $repoOwner: String!) {
         repository(name: $repoName, owner: $repoOwner) {
             id
             owner {
