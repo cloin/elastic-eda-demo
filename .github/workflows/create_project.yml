@@ -2,6 +2,10 @@ name: Create GitHub Project
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  repository-projects: write
+
 jobs:
   create_project:
     runs-on: ubuntu-latest
