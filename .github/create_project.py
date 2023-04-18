@@ -65,7 +65,7 @@ def create_project(token, repo_name, training_plan):
 
     # Create a new repository project
     mutation = """
-    mutation($ownerId: ID!, $repoId: ID!, $name: String!, $body: String!) {
+    mutation($ownerId: ID!, $repoId: ID!, $name: String!) {
         createProjectV2(input: {ownerId: $ownerId, repositoryId: $repoId, title: $name}) {
             projectV2 {
                 id
