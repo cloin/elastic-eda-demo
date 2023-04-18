@@ -80,6 +80,7 @@ def create_project(token, repo_name, training_plan):
         "body": "A project to track progress in the ELK training plan."
     }
     data = graphql_request(token, mutation, variables)
+    print(data)
     project_id = data["createProject"]["project"]["id"]
 
     # Create columns for the new project
@@ -101,6 +102,7 @@ def create_project(token, repo_name, training_plan):
             "name": column_name
         }
         data = graphql_request(token, mutation, variables)
+        print(data)
         column_ids.append(data["createProjectColumn"]["projectColumn"]["id"])
 
     # Add weeks as tasks to the "To Do" column
