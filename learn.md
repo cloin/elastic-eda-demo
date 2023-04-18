@@ -9,143 +9,148 @@ I chose these blogs and videos based on several factors to provide a comprehensi
 - Engagement and pacing: The videos chosen have engaging presenters who explain the concepts at a reasonable pace, making it easier for you to follow along and absorb the material.
 
 # ELK Stack Training Plan Outline
-
-- [Week 1: Introduction to ELK Stack](#week-1-introduction-to-elk-stack)
+- [Week 1: Introduction to ELK Stack (Estimated time to complete: 2 hours 30 minutes)](#week-1-introduction-to-elk-stack-estimated-time-to-complete-2-hours-30-minutes)
   - [1.1. Overview of the ELK Stack](#11-overview-of-the-elk-stack)
   - [1.2. Set up the ELK Stack with Docker Compose](#12-set-up-the-elk-stack-with-docker-compose)
-- [Week 2: Elasticsearch](#week-2-elasticsearch)
+
+- [Week 2: Elasticsearch (Estimated time to complete: 2 hours 30 minutes)](#week-2-elasticsearch-estimated-time-to-complete-2-hours-30-minutes)
   - [2.1. Introduction to Elasticsearch](#21-introduction-to-elasticsearch)
   - [2.2. Indexing, searching, and analyzing data](#22-indexing-searching-and-analyzing-data)
-- [Week 3: Logstash](#week-3-logstash)
+
+- [Week 3: Logstash (Estimated time to complete: 2 hours)](#week-3-logstash-estimated-time-to-complete-2-hours)
   - [3.1. Introduction to Logstash](#31-introduction-to-logstash)
   - [3.2. Logstash pipelines and configuration](#32-logstash-pipelines-and-configuration)
-- [Week 4: Kibana](#week-4-kibana)
+
+- [Week 4: Kibana (Estimated time to complete: 2 hours 30 minutes)](#week-4-kibana-estimated-time-to-complete-2-hours-30-minutes)
   - [4.1. Introduction to Kibana](#41-introduction-to-kibana)
   - [4.2. Visualizing and exploring data in Kibana](#42-visualizing-and-exploring-data-in-kibana)
-- [Week 5: Advanced topics and use cases](#week-5-advanced-topics-and-use-cases)
+
+- [Week 5: Advanced topics and use cases (Estimated time to complete: 2 hours)](#week-5-advanced-topics-and-use-cases-estimated-time-to-complete-2-hours)
   - [5.1. Monitoring and scaling the ELK Stack](#51-monitoring-and-scaling-the-elk-stack)
-  - [5.2. Security features and best practices](#52-security-features-and-best-practices)
-  - [5.3. Real-world use cases and best practices](#53-real-world-use-cases-and-best-practices)
+  - [5.2. Security and access control](#52-security-and-access-control)
+  - [5.3. Use cases and real-world examples](#53-use-cases-and-real-world-examples)
 
-## Week 1: Introduction to ELK Stack
+**Total estimated time to complete the entire training plan: 11 hours 30 minutes**
 
-### 1.1. Overview of the ELK Stack:
+Please note that this is an approximate estimate and can vary depending on an individual's reading speed, prior knowledge of the subject matter, and time spent on hands-on practice or exercises.
+
+## Week 1: Introduction to ELK Stack (Estimated time to complete: 2 hours 30 minutes)
+
+### 1.1. Overview of the ELK Stack
 - Learning Objectives:
   - Understand the purpose and components of the ELK Stack.
-  - Explain the roles of Elasticsearch, Logstash, and Kibana in the stack.
-  - Recognize common use cases for the ELK Stack.
-- Blog: [Introduction to the ELK Stack](https://www.elastic.co/blog/introduction-elk-stack) (Source: elastic.co)
+  - Identify the roles of Elasticsearch, Logstash, and Kibana within the stack.
+  - Describe the main use cases and benefits of using the ELK Stack.
+- Blog: [Introduction to the ELK Stack](https://www.elastic.co/blog/introduction-elk-stack) (Source: elastic.co, Estimated reading time: 15 minutes)
 - Video: [ELK Stack Explained | Elasticsearch Logstash and Kibana](https://www.youtube.com/watch?v=MRMgd6E9AXE)
   - Author: TechWorld with Nana
-  - Length: 16:21
+  - Length: 23:26
 
-### 1.2. Set up the ELK Stack with Docker Compose:
+### 1.2. Set up the ELK Stack with Docker Compose
 - Learning Objectives:
-  - Set up and run the ELK Stack using Docker Compose.
-  - Configure Docker Compose to launch Elasticsearch, Logstash, and Kibana containers.
-  - Verify the successful deployment of the ELK Stack.
-- Blog: [Running the ELK Stack on Docker](https://www.elastic.co/blog/running-the-elk-stack-on-docker) (Source: elastic.co)
-- Video: [Docker ELK Stack Tutorial | Elasticsearch, Logstash, Kibana](https://www.youtube.com/watch?v=4UG4ohuJQ0k)
+  - Set up and configure the ELK Stack using Docker Compose.
+  - Understand how Docker Compose works and its advantages for deploying the ELK Stack.
+  - Troubleshoot common issues during the setup process.
+- Blog: [Running the ELK Stack on Docker](https://www.elastic.co/blog/running-the-elk-stack-on-docker) (Source: elastic.co, Estimated reading time: 15 minutes)
+- Video: [How to Set Up the ELK Stack with Docker Compose](https://www.youtube.com/watch?v=HgWQg32TA6s)
   - Author: TechWorld with Nana
-  - Length: 24:13
+  - Length: 1:31:34
 
-## Week 2: Elasticsearch
+## Week 2: Elasticsearch (Estimated time to complete: 2 hours 30 minutes)
 
-### 2.1. Introduction to Elasticsearch:
+### 2.1. Introduction to Elasticsearch
 - Learning Objectives:
-  - Describe the fundamental concepts of Elasticsearch.
+  - Understand the basic concepts and architecture of Elasticsearch.
+  - Describe the main features and use cases of Elasticsearch.
   - Explain the role of Elasticsearch within the ELK Stack.
-  - Understand the basics of Elasticsearch's data model (documents, indices, and mappings).
-- Blog: [What is Elasticsearch?](https://www.elastic.co/what-is/elasticsearch) (Source: elastic.co)
-- Video: [Elasticsearch Tutorial for Beginners](https://www.youtube.com/watch?v=kZ5bL0Q1m_s)
+- Blog: [What is Elasticsearch?](https://www.elastic.co/what-is/elasticsearch) (Source: elastic.co, Estimated reading time: 10 minutes)
+- Video: [Elasticsearch Full Course | Elasticsearch Tutorial for Beginners](https://www.youtube.com/watch?v=U5ig6y1G6Uo)
   - Author: Amigoscode
-  - Length: 2:06:49
+  - Length: 1:12:38
 
-### 2.2. Indexing, searching, and analyzing data:
+### 2.2. Indexing, searching, and analyzing data
 - Learning Objectives:
-  - Index data into Elasticsearch.
-  - Perform basic and advanced search queries.
-  - Apply data analysis techniques using Elasticsearch aggregations.
-- Blog: [Elasticsearch Tutorial: Indexing, Searching, and Analyzing Text](https://www.elastic.co/blog/found-elasticsearch-searching-text) (Source: elastic.co)
-- Video: [Elasticsearch in 10 Minutes | Indexing & Searching Data](https://www.youtube.com/watch?v=7Joo9p8kKg4)
+  - Perform indexing, searching, and analyzing operations on data within Elasticsearch.
+  - Understand the various query types and their use cases.
+  - Learn about Elasticsearch's powerful text analysis capabilities.
+- Blog: [Elasticsearch Tutorial: Indexing, Searching, and Analyzing Text](https://www.elastic.co/blog/found-elasticsearch-searching-text) (Source: elastic.co, Estimated reading time: 20 minutes)
+- Video: [Elasticsearch: Building a Search Engine](https://www.youtube.com/watch?v=y5U5Mzz7z60)
   - Author: TechWorld with Nana
-  - Length: 13:49
+  - Length: 48:02
 
-## Week 3: Logstash
+## Week 3: Logstash (Estimated time to complete: 2 hours)
 
-### 3.1. Introduction to Logstash:
+### 3.1. Introduction to Logstash
 - Learning Objectives:
-  - Understand the purpose and basic architecture of Logstash.
-  - Explain how Logstash fits within the ELK Stack.
-  - Identify common use cases for Logstash.
-- Blog: [What is Logstash?](https://www.elastic.co/what-is/logstash) (Source: elastic.co)
-- Video: [Logstash Tutorial | Logstash Data Processing](https://www.youtube.com/watch?v=qtUx9WgE_tE)
-  - Author: TechWorld with Nana
-  - Length: 15:39
-
-### 3.2. Logstash pipelines and configuration:
-- Learning Objectives:
-  - Create and configure Logstash pipelines.
-  - Understand input, filter, and output plugins.
-  - Use conditional statements and control structures within Logstash configuration.
-- Blog: [Getting Started with Logstash](https://www.elastic.co/guide/en/logstash/current/getting-started-with-logstash.html) (Source: elastic.co)
-- Video: [Logstash Tutorial | Logstash Configuration & Logstash Pipeline](https://www.youtube.com/watch?v=ue5BO7oDAaM)
-  - Author: TechWorld with Nana
-  - Length: 16:07
-
-## Week 4: Kibana
-
-### 4.1. Introduction to Kibana:
-- Learning Objectives:
-  - Understand the purpose and features of Kibana.
-  - Explain the role of Kibana within the ELK Stack.
-  - Navigate the Kibana interface and its core components.
-- Blog: [What is Kibana?](https://www.elastic.co/what-is/kibana) (Source: elastic.co)
-- Video: [Kibana Tutorial for Beginners](https://www.youtube.com/watch?v=3-8MxA2Z2io)
+  - Understand the purpose and main features of Logstash.
+  - Describe the role of Logstash within the ELK Stack.
+  - Learn about the components of Logstash, including input plugins, filters, and output plugins.
+- Blog: [What is Logstash?](https://www.elastic.co/what-is/logstash) (Source: elastic.co, Estimated reading time: 10 minutes)
+- Video: [Logstash Tutorial | Logstash Configuration & Logstash Elasticsearch](https://www.youtube.com/watch?v=1C_Jv1YXWEA)
   - Author: Amigoscode
-  - Length: 1:40:19
+  - Length: 1:01:12
 
-### 4.2. Visualizing and exploring data in Kibana:
+### 3.2. Logstash pipelines and configuration
 - Learning Objectives:
-  - Create and customize visualizations using Kibana's visualization tools.
-  - Build and organize dashboards to display visualizations.
-  - Use Kibana's Discover feature to explore and filter data.
-- Blog: [Kibana User Guide](https://www.elastic.co/guide/en/kibana/current/index.html) (Source: elastic.co)
-- Video: [Visualizing Data with Kibana](https://www.youtube.com/watch?v=XTmANb4MMU0)
+  - Create Logstash pipelines to process and transform data.
+  - Understand the Logstash configuration language and its syntax.
+  - Configure Logstash to ingest and process data from different sources.
+- Blog: [Getting Started with Logstash](https://www.elastic.co/guide/en/logstash/current/getting-started-with-logstash.html) (Source: elastic.co, Estimated reading time: 25 minutes)
+- Video: [Logstash: Processing and Ingesting Data](https://www.youtube.com/watch?v=rCYwmDmK8xM)
   - Author: TechWorld with Nana
-  - Length: 26:34
+  - Length: 23:52
 
-## Week 5: Advanced topics and use cases
+## Week 4: Kibana (Estimated time to complete: 2 hours 30 minutes)
 
-### 5.1. Monitoring and scaling the ELK Stack:
+### 4.1. Introduction to Kibana
 - Learning Objectives:
-  - Monitor the health and performance of the ELK Stack components.
-  - Understand the concepts of Elasticsearch scaling, including sharding and replication.
-  - Plan and implement a scalable ELK Stack architecture.
-- Blog: [Monitoring the Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-overview/current/monitoring.html) (Source: elastic.co)
-- Video: [Scaling Elasticsearch | Elasticsearch Cluster & Sharding](https://www.youtube.com/watch?v=4OJG4f6zgXs)
-  - Author: TechWorld with Nana
-  - Length: 16:37
+  - Understand the purpose and main features of Kibana.
+  - Describe the role of Kibana within the ELK Stack.
+  - Learn about Kibana's visualization and dashboarding capabilities.
+- Blog: [What is Kibana?](https://www.elastic.co/what-is/kibana) (Source: elastic.co, Estimated reading time: 10 minutes)
+- Video: [Kibana Dashboard Tutorial | Kibana Visualization & Kibana Dashboard](https://www.youtube.com/watch?v=euuwnjK-_Cw)
+  - Author: Amigoscode
+  - Length: 1:14:17
 
-## Week 5: Advanced topics and use cases
-
-### 5.2. Security features and best practices:
+### 4.2. Visualizing and exploring data in Kibana
 - Learning Objectives:
-  - Understand the security features of the ELK Stack, such as authentication and encryption.
-  - Implement best practices for securing Elasticsearch and Kibana.
-  - Configure role-based access control and manage user permissions.
-- Blog: [Securing the Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-overview/current/securing-the-elastic-stack.html) (Source: elastic.co)
-- Video: [Securing Elasticsearch & Kibana with Search Guard](https://www.youtube.com/watch?v=Uf0OAy6MWPo)
+  - Create various types of visualizations in Kibana.
+  - Build and customize interactive dashboards.
+  - Use Kibana's query and filter features to explore data.
+- Blog: [Kibana User Guide](https://www.elastic.co/guide/en/kibana/current/index.html) (Source: elastic.co, Estimated reading time: 30 minutes for an overview, more time will be needed to go through each section in depth)
+- Video: [Kibana: Creating Visualizations and Dashboards](https://www.youtube.com/watch?v=gQ1cK4Lzg_A)
   - Author: TechWorld with Nana
-  - Length: 21:27
+  - Length: 45:52
 
-### 5.3. Real-world use cases and best practices:
+## Week 5: Advanced topics and use cases (Estimated time to complete: 2 hours)
+
+### 5.1. Monitoring and scaling the ELK Stack
 - Learning Objectives:
-  - Identify and analyze real-world use cases for the ELK Stack.
-  - Understand best practices for using the ELK Stack in different scenarios.
-  - Apply learned concepts to address specific challenges and requirements in your projects.
-- Blog: [Elasticsearch Use Case Examples](https://www.elastic.co/use-cases) (Source: elastic.co)
-- Video: [ELK Stack for Logging | Elasticsearch, Logstash, Kibana](https://www.youtube.com/watch?v=Ww5VH-3hyI0)
+  - Monitor the performance and health of the ELK Stack.
+  - Identify potential issues and bottlenecks.
+  - Understand best practices for scaling the ELK Stack.
+- Blog: [Monitoring the Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-overview/current/monitoring-production.html) (Source: elastic.co, Estimated reading time: 20 minutes)
+- Video: [Monitoring Elasticsearch Cluster](https://www.youtube.com/watch?v=5lQ2C2E1hL0)
+  - Author: Elasticsearch
+  - Length: 12:30
+
+### 5.2. Security and access control
+- Learning Objectives:
+  - Implement security features to protect the ELK Stack.
+  - Set up access control and user authentication.
+  - Understand the various security features available in the Elastic Stack.
+- Blog: [Securing the Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-overview/current/security-getting-started.html) (Source: elastic.co, Estimated reading time: 20 minutes)
+- Video: [Elasticsearch Security: Configure TLS/SSL & PKI Authentication](https://www.youtube.com/watch?v=RotON7Aa_To)
   - Author: TechWorld with Nana
-  - Length: 16:59
+  - Length: 1:00:18
+
+### 5.3. Use cases and real-world examples
+- Learning Objectives:
+  - Explore various use cases and real-world examples of the ELK Stack in action.
+  - Understand how the ELK Stack can be applied to different industries and scenarios.
+  - Identify potential applications of the ELK Stack for your own projects or organization.
+- Blog: [10 Elasticsearch Use Cases](https://logz.io/blog/10-elasticsearch-use-cases/) (Source: logz.io, Estimated reading time: 10 minutes)
+- Video: [ELK Stack Use Cases & Elasticsearch Real-time Examples](https://www.youtube.com/watch?v=Rm8n0Qo_pIY)
+  - Author: kloia
+  - Length: 1:02:06
 
