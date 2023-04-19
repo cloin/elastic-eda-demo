@@ -65,8 +65,8 @@ def create_project(token, repo_name, training_plan):
 
     # Create a new repository project
     mutation = """
-    mutation($ownerId: ID!, $repoId: ID!, $name: String!) {
-        createProjectV2(input: {ownerId: $ownerId, repositoryId: $repoId, title: $name}) {
+    mutation($ownerId: ID!, $repoId: ID!, $title: String!) {
+        createProjectV2(input: {ownerId: $ownerId, repositoryId: $repoId, title: $title}) {
             projectV2 {
                 id
             }
@@ -76,7 +76,7 @@ def create_project(token, repo_name, training_plan):
     variables = {
         "ownerId": data["repository"]["owner"]["id"],
         "repoId": data["repository"]["id"],
-        "name": "ELK-Training-Plan",
+        "title": "ELK-Training-Plan",
     }
     data = graphql_request(token, mutation, variables)
     print(data)
