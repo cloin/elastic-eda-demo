@@ -67,7 +67,7 @@ def create_project(token, repo_name, training_plan):
     mutation = """
     mutation($ownerId: ID!, $repoId: ID!, $name: String!) {
         createProjectV2(input: {ownerId: $ownerId, repositoryId: $repoId, title: $name}) {
-            projectV2 {
+            project {
                 id
             }
         }
@@ -80,7 +80,7 @@ def create_project(token, repo_name, training_plan):
     }
     data = graphql_request(token, mutation, variables)
     print(data)
-    project_id = data["createProjectV2"]["projectV2"]["number"]
+    project_id = data["createProjectV2"]["project"]["id"]
 
     # Create columns for the new project
     column_names = ["To Do", "In Progress", "Done"]
