@@ -19,9 +19,9 @@ jobs:
           python-version: '3.x'
       
       - name: Install Python packages
-        run: pip install requests PyGithub
+        run: pip install requests
       
-      - name: Create GitHub Project and Columns
+      - name: Create GitHub Project and Cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python .github/create_project.py
