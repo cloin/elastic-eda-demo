@@ -19,7 +19,7 @@ jobs:
           python-version: '3.x'
       
       - name: Install Python packages
-        run: pip install requests
+        run: pip install requests pygithub
       
       - name: Create GitHub Project and Cards
         env:
