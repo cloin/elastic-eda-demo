@@ -33,8 +33,7 @@ def get_training_plan(repo):
 def graphql_request(token, query, variables=None):
     headers = {
         "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json",
-        "X-Github-Next-Global-ID": "1"
+        "Content-Type": "application/json"
     }
     response = requests.post(GRAPHQL_API_URL, json={"query": query, "variables": variables}, headers=headers)
     response.raise_for_status()
@@ -64,7 +63,7 @@ def create_project(token, repo_name, training_plan):
     data = graphql_request(token, query, variables)
     print(data)
 
-    # Create a new repository project
+    # # Create a new repository project
     mutation = """
     mutation($ownerId: ID!, $repoId: ID!, $title: String!) {
         createProjectV2(input: {ownerId: $ownerId, repositoryId: $repoId, title: $title}) {
