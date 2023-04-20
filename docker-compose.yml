@@ -92,7 +92,7 @@ services:
       --rulebook /eda/elastic-rulebook.yml
       --inventory /eda/inventory.yml
       --source-dir /eda/
-      # --verbose
+      --verbose
 
 volumes:
   esdata:

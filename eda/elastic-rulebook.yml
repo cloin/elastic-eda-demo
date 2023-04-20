@@ -7,10 +7,10 @@
         elastic_username: elastic
         elastic_password: elastic!
         elastic_index_pattern: filebeat-*
-        # query:
-        #   term:
-        #     container.name.keyword: nginx
-        # interval: 5
+        query: |
+          term:
+            container.name.keyword: nginx
+        interval: 5
 
   rules:
     - name: Debug event
