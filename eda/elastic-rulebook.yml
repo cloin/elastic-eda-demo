@@ -10,6 +10,7 @@
         # query:
         #   term:
         #     container.name.keyword: nginx
+        # interval: 5
 
   rules:
     - name: Debug event
