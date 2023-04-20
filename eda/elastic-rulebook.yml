@@ -5,7 +5,7 @@
         elastic_host: elasticsearch
         elastic_port: 9200
         elastic_username: elastic
-        elastic_password: ansible123!
+        elastic_password: elastic!
         elastic_index_pattern: filebeat-*
         # query:
         #   term:
