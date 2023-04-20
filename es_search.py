@@ -1,60 +1,54 @@
 import asyncio
-from elasticsearch import AsyncElasticsearch
 from datetime import datetime
+from elasticsearch import AsyncElasticsearch
+from dateutil.parser import parse
 
-async def query_log_stream():
-    # Connect to your Elasticsearch instance
-    es = AsyncElasticsearch(["http://localhost:9200"], http_auth=("elastic", "MY_PASSWORD"))
+# Replace 'your_username' and 'your_password' with your Elasticsearch credentials
+your_username = 'elastic'
+your_password = 'ansible123!'
 
-    # Define the initial timestamp
-    start_time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "Z"
+es = AsyncElasticsearch("http://localhost:9200", http_auth=(your_username, your_password))
+
+async def run_query(query, index_pattern):
+    # Set the initial search_after value to the current timestamp
+    search_after = datetime.utcnow()
 
     while True:
-        # Define your query
-        query = {
-            "query": {
-                "bool": {
-                    "must": [
-                        {
-                            "term": {
-                                "container.name.keyword": "nginx"
-                            }
-                        },
-                        {
-                            "range": {
-                                "@timestamp": {
-                                    "gte": start_time
-                                }
-                            }
-                        }
-                    ]
-                }
-            },
+        body = {
+            "query": query,
             "sort": [
                 {
                     "@timestamp": {
                         "order": "asc"
                     }
                 }
-            ]
+            ],
+            "search_after": [search_after.isoformat()],
+            "size": 1000
         }
 
-        # Execute the search query
-        response = await es.search(index="filebeat-*", body=query)
-        hits = response['hits']['hits']
-        for hit in hits:
-            message = hit['_source']['message']
-            container_name = hit['_source']['container']['name']
-            print(f"Container: {container_name}, Message: {message}")
+        # Run the query
+        response = await es.search(index=index_pattern, body=body)
 
-            # Update the start_time to the timestamp of the latest hit
-            start_time = hit['_source']['@timestamp']
+        # Process the results
+        for hit in response['hits']['hits']:
+            log_entry = hit["_source"]
+            print(log_entry)
 
-        # Wait for 5 seconds before running the query again
+            # Update the search_after value to the current log entry's timestamp
+            search_after = parse(log_entry["@timestamp"])
+
+        # Wait before running the query again
         await asyncio.sleep(5)
 
-    # Close the Elasticsearch connection
-    await es.transport.close()
+# Replace 'your_query' and 'your_index_pattern' with your actual query and index pattern
+your_query = {
+    "term": {
+        "container.name.keyword": "nginx"
+    }
+}
 
-# Run the async function
-asyncio.run(query_log_stream())
+your_index_pattern = "filebeat-*"
+
+asyncio.run(run_query(your_query, your_index_pattern))
+
