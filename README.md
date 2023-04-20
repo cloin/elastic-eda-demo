@@ -1,6 +1,6 @@
-# Elasticsearch, Logstash, Kibana (ELK) Stack with Filebeat using Docker Compose
+# Elasticsearch, Logstash, Kibana (Elastic Stack) with Filebeat using Docker Compose
 
-This repository contains a Docker Compose configuration file that sets up the ELK stack and Filebeat. The ELK stack is composed of Elasticsearch, Logstash, and Kibana, and Filebeat is used for log collection and forwarding.
+This repository contains a Docker Compose configuration file that sets up the stack and Filebeat. The stack is composed of Elasticsearch, Logstash, and Kibana, and Filebeat is used for log collection and forwarding.
 
 Filebeat is configured to ship the docker logs for this stack to Elasticsearch.
 
