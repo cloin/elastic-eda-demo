@@ -1,7 +1,7 @@
 - name: Elastic events
   hosts: localhost
   sources:
-    - elastic:
+    - cloin.eda.elastic:
         elastic_host: elasticsearch
         elastic_port: 9200
         elastic_username: elastic

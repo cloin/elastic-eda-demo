@@ -91,7 +91,6 @@ services:
       ansible-rulebook
       --rulebook /eda/elastic-rulebook.yml
       --inventory /eda/inventory.yml
-      --source-dir /eda/
       --verbose
 
 volumes:
