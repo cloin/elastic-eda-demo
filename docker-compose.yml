@@ -78,6 +78,22 @@ services:
     ports:
       - "8080:80"
 
+  ansible-rulebook:
+    build:
+      dockerfile: rulebook-dockerfile
+    container_name: ansible-rulebook
+    restart: unless-stopped
+    volumes:
+      - ./eda:/eda
+    networks:
+      - elk
+    command: >
+      ansible-rulebook
+      --rulebook /eda/elastic-rulebook.yml
+      --inventory /eda/inventory.yml
+      --source-dir /eda/
+      # --verbose
+
 volumes:
   esdata:
     driver: local
