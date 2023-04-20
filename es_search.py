@@ -3,9 +3,9 @@ from datetime import datetime
 from elasticsearch import AsyncElasticsearch
 from dateutil.parser import parse
 
-# Replace 'your_username' and 'your_password' with your Elasticsearch credentials
+# Replace with your Elasticsearch credentials
 your_username = 'elastic'
-your_password = 'ansible123!'
+your_password = 'YOURPASSWORD!'
 
 es = AsyncElasticsearch("http://localhost:9200", http_auth=(your_username, your_password))
 
