@@ -41,7 +41,7 @@ async def run_query(query, index_pattern):
         # Wait before running the query again
         await asyncio.sleep(5)
 
-# Replace 'your_query' and 'your_index_pattern' with your actual query and index pattern
+# Default query collects log lines from the nginx container in this stack using filebeat-* index
 your_query = {
     "term": {
         "container.name.keyword": "nginx"
