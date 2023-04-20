@@ -4,7 +4,7 @@ This repository contains a Docker Compose configuration file that sets up the st
 
 Filebeat is configured to ship the docker logs for this stack to Elasticsearch.
 
-ansible-rulebook is also running in this stack and is configured to pull a rulebook and custom source plugin from the `eda` directory. This source plugin is able to accept elastic queries and run them at an interval to retrieve log entries. In the default setup, this rulebook is watching for new log entries from the nginx container and dumping the events. View logs of this occurring by running `docker compose logs -f ansible-rulebook`
+ansible-rulebook is also running in this stack and is configured to pull a rulebook and custom source plugin from galaxy. This source plugin is able to accept elastic queries and run them at an interval to retrieve log entries. In the default setup, this rulebook is watching for new log entries from the nginx container and dumping the events. View logs of this occurring by running `docker compose logs -f ansible-rulebook`
 
 This configuration is not suitable for a production environment.
 
