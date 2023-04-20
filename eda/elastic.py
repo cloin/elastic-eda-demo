@@ -10,7 +10,7 @@ async def main(queue: asyncio.Queue, args: Dict[str, Any]):
     elastic_host = args.get("elastic_host", "localhost")
     elastic_port = args.get("elastic_port", 9200)
     elastic_username = args.get("elastic_username", "elastic")
-    elastic_password = args.get("elastic_password", "ansible123!")
+    elastic_password = args.get("elastic_password", "elastic!")
     elastic_index_pattern = args.get("elastic_index_pattern", "filebeat-*")
     interval = args.get("interval", 5)
     query = args.get("query", "term:\n  container.name.keyword: nginx")
