@@ -6,6 +6,10 @@ filebeat.inputs:
 processors:
 - add_docker_metadata:
     host: "unix:///var/run/docker.sock"
+- dissect:
+    tokenizer: '%{timestamp} [%{log_level}] %{pid}#%{tid}: *%{request_id} %{message}'
+    field: "message"
+    target_prefix: "nginx"
 
 output.logstash:
   hosts: ["logstash:5044"]
