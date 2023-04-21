@@ -8,6 +8,9 @@ ansible-rulebook is also running in this stack and is configured to pull a ruleb
 
 This configuration is not suitable for a production environment.
 
+### Demo video:
+<a href="https://youtu.be/emHLD4_YcLw" rel="demo video">![Demo video](https://i.ytimg.com/vi/emHLD4_YcLw/hqdefault.jpg)</a>
+
 ## Prerequisites
 
 - Docker and Docker Compose installed on your system.
