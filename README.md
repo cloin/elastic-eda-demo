@@ -65,6 +65,7 @@ docker compose up -d
 - Elasticsearch: 9200
 - Logstash: 5044
 - Kibana: 5601
+- Nginx site: 8080
 
 ## Customization
 
