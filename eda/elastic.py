@@ -1,58 +1,38 @@
 import asyncio
 from datetime import datetime
-from elasticsearch import AsyncElasticsearch
+from prometheus_api_client import PrometheusConnect
 from dateutil.parser import parse
 from typing import Any, Dict
 import yaml
 
-
 async def main(queue: asyncio.Queue, args: Dict[str, Any]):
-    elastic_host = args.get("elastic_host", "localhost")
-    elastic_port = args.get("elastic_port", 9200)
-    elastic_username = args.get("elastic_username", "elastic")
-    elastic_password = args.get("elastic_password", "elastic!")
-    elastic_index_pattern = args.get("elastic_index_pattern", "filebeat-*")
+    prometheus_host = args.get("prometheus_host", "localhost")
+    prometheus_port = args.get("prometheus_port", 9090)
     interval = args.get("interval", 5)
-    query = args.get("query", "term:\n  container.name.keyword: nginx")
+    query = args.get("query", "up")
 
-    elastic_query = yaml.safe_load(query)
+    prometheus_query = query  # Modify as needed
 
-    async with AsyncElasticsearch(f"http://{elastic_host}:{elastic_port}", basic_auth=(elastic_username, elastic_password)) as es:
-        # Set the initial search_after value to the current timestamp
-        search_after = datetime.utcnow()
+    pc = PrometheusConnect(url=f"http://{prometheus_host}:{prometheus_port}")
 
-        while True:
-            sort = [
-                {
-                    "@timestamp": {
-                        "order": "asc"
-                    }
-                }
-            ]
+    # Set the initial timestamp value
+    timestamp = datetime.utcnow()
 
-            # Run the query
-            response = await es.search(
-                index=elastic_index_pattern,
-                query=elastic_query,
-                sort=sort,
-                search_after=[search_after.isoformat()],
-                size=1000
-            )
+    while True:
+        query_result = pc.custom_query_range(query=prometheus_query, start=timestamp.isoformat(), end=datetime.utcnow().isoformat(), step=60)
 
+        for result in query_result:
             # Process the results
-            for hit in response['hits']['hits']:
-                log_entry = hit["_source"]
-                await queue.put(log_entry)
+            metric_entry = result["values"]
+            await queue.put(metric_entry)
 
-                # Update the search_after value to the current log entry's timestamp
-                search_after = parse(log_entry["@timestamp"])
+            # Update the timestamp value to the current metric entry's timestamp
+            timestamp = datetime.utcfromtimestamp(result["timestamp"])
 
-            # Wait before running the query again
-            await asyncio.sleep(interval)
-
+        # Wait before running the query again
+        await asyncio.sleep(interval)
 
 if __name__ == "__main__":
-
     class MockQueue:
         async def put(self, event):
             print(event)
